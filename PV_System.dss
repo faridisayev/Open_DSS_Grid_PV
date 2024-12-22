@@ -1,0 +1,33 @@
+/// Define Power vs Temperature curve
+
+New XYcurve.Power_vs_Temperature npts = 4 xarray = [0 25 75 100] yarray = [1.2 1 .8 .6]
+
+// Define efficiency curve
+
+New XYcurve.Efficiency npts = 4 xarray = [.1 .2 .4 1] yarray = [.97 .9725 .975 .98]
+
+// Define irradiation change
+
+//New Loadshape.Irradiation npts = 24 interval = 1 mult = [0 0 0 0 0 0 .1 .2 .3  .5  .8  .9  1.0  1.0  .99  .9  .7  .4  .1 0  0  0  0  0]
+
+//New Loadshape.Irradiation npts = 24 interval = 1 mult = [.5 .3 .5 .3 .5 .3 .5 .3 .5 .3 .5 .3 .5 .3 .5 .3 .5 .3 .5 .3 .5 .3 .5 .3]
+
+New Loadshape.Irradiation npts = 24 interval = 1 mult = [1 1 1 1 1 1 1 1 1  1  1  1  1  1  1  1  1  1  1 1  1  1  1  1]
+
+//New Loadshape.Irradiation npts = 24 interval = 1 mult = [.1 .2 .3 .4 .5 .6 .7 .8 .9 .1 .9 .8 .7 .6 .5 .4 .3 .2 .1 .9 .8 .7 .6 .5]
+
+// Define temperature change
+
+New Tshape.Temperature npts = 24 interval = 1 temp = [25, 25, 25, 25, 25, 25, 25, 25, 35, 40, 45, 50  60 60  55 40  35  30  25 25 25 25 25 25]
+
+// Define PV System
+
+New PVSystem.PV phases = 3 bus1 = PCC kV = 0.4  kVA = 20  irrad = .98  Pmpp = 25 temperature = 25 PF = 1 %cutin = 0.1 %cutout = 0.1  effcurve = Efficiency  P-TCurve = Power_vs_Temperature Daily = Irradiation TDaily = Temperature
+
+//Define Transformer
+
+New Transformer.T  phases=3 xhl=5.750000  
+
+~ wdg=1 bus=PCC kV=0.4 kVA=25 conn=wye
+
+~ wdg=2 bus=C kV=0.4 kVA=25 conn=wye

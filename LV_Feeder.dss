@@ -1,0 +1,63 @@
+// Add a clear command
+
+Clear
+
+// Add a voltage source
+
+New Circuit.Source phases = 3 basekv = 0.4 bus1 = A
+
+// From European LV Test Grid
+
+New LineCode.Arrangement nphases=3 R1=0.446 X1=0.071 R0=1.505 X0=0.083 C1=0 C0=0 Units=km
+
+// Define lines
+
+New Line.Line1 phases = 3 Bus1 = A Bus2 = B Length = 0.2 units = km linecode = Arrangement
+
+New Line.Line2 phases = 3 Bus1 = B Bus2 = C Length = 0.15 units = km linecode = Arrangement
+
+// Define loadshape
+
+//New Loadshape.One_Hour npts = 24 interval = 0
+
+//~ csvfile = One_Hour.csv
+
+// Define load
+
+New Load.Load phases = 3 conn = wye Bus1 = B kw = 25 pf = 0.93 kv = 0.4
+
+// Include PV_System
+
+Redirect PV_System.dss
+
+// Set all line-to-line voltages
+
+Set voltagebases = [0.4]
+
+calcVoltagebases
+
+// Monitor variables
+
+New monitor.Line1_Power element = Line.Line1 terminal = 1 mode = 1 ppolar = no
+
+New monitor.Line1_Voltage element = Line.Line1 terminal = 1 mode = 0
+
+New monitor.Load_Power element = Load.Load terminal = 1 mode = 1 ppolar = no
+
+New monitor.Load_Voltage element = Load.Load terminal = 1 mode = 0
+
+New monitor.PCC_Power element = Transformer.T terminal = 1 mode = 1 ppolar = no
+
+New monitor.PCC_Voltage element = Transformer.T terminal = 1 mode = 0 
+
+New monitor.PV_Variables element = PVSystem.PV terminal = 1 mode = 3
+
+// Set daily mode
+
+set mode = daily
+
+set stepsize = 1h
+
+set number = 24
+
+solve
