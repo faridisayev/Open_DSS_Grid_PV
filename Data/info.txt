@@ -1,0 +1,1 @@
+This folder contains data about Temperature and Irradiance change in Cedar City, Utah, USA, on January 1, July 1, and October 1 of 2012.
